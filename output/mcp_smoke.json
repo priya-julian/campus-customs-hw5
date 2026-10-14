@@ -1,0 +1,191 @@
+{
+  "run": {
+    "what": "Live smoke test of the campus-customs MCP server. The server was launched over stdio exactly as .mcp.json launches it, and each tool was called through a real MCP client session.",
+    "server_name": "campus-customs",
+    "launched_via": {
+      "command": "/Users/julian/Desktop/AI Foundations/Homework 5/.venv/bin/python",
+      "args": [
+        "/Users/julian/Desktop/AI Foundations/Homework 5/mcp_server/server.py"
+      ]
+    },
+    "database_under_test": "data/campus_customs_new.db",
+    "shop_date_today": "2026-08-31",
+    "tools_advertised_by_server": [
+      "check_stock",
+      "get_lease",
+      "get_pricing"
+    ],
+    "tools_tested": 3,
+    "all_outputs_match_database": true,
+    "database_mutated_by_this_run": false,
+    "note": "All three tools are read-only, so the working copy is byte-identical to the original after this run."
+  },
+  "tests": [
+    {
+      "tool": "check_stock",
+      "prompt_to_vibe_coder": "Ticket 101 wants CC-TEE-WHITE in size S. Use the campus-customs MCP server to check stock for that SKU and size, and tell me how many are on hand.",
+      "ticket_unlocked": 101,
+      "arguments": {
+        "sku": "CC-TEE-WHITE",
+        "size": "S"
+      },
+      "tool_output": {
+        "found": true,
+        "sku": "CC-TEE-WHITE",
+        "name": "Classic Bulldog Tee",
+        "size": "S",
+        "qty": 0,
+        "location": "Aisle B",
+        "in_stock": false,
+        "sizes_on_hand": [
+          {
+            "size": "L",
+            "qty": 3
+          },
+          {
+            "size": "M",
+            "qty": 5
+          },
+          {
+            "size": "S",
+            "qty": 0
+          },
+          {
+            "size": "XL",
+            "qty": 2
+          }
+        ]
+      },
+      "db_verification": {
+        "query_source": "inventory WHERE sku='CC-TEE-WHITE' AND size='S'",
+        "fields_checked": {
+          "qty": {
+            "expected_from_db": 0,
+            "returned_by_tool": 0,
+            "match": true
+          },
+          "location": {
+            "expected_from_db": "Aisle B",
+            "returned_by_tool": "Aisle B",
+            "match": true
+          },
+          "name": {
+            "expected_from_db": "Classic Bulldog Tee",
+            "returned_by_tool": "Classic Bulldog Tee",
+            "match": true
+          }
+        },
+        "all_fields_match": true
+      }
+    },
+    {
+      "tool": "get_lease",
+      "prompt_to_vibe_coder": "Ticket 102 is a rent notice pointing at lease_id 1. Use the campus-customs MCP server to pull that lease and tell me the monthly rent, the next due date, and whether it is overdue as of the shop's own date.",
+      "ticket_unlocked": 102,
+      "arguments": {
+        "lease_id": 1
+      },
+      "tool_output": {
+        "found": true,
+        "lease_id": 1,
+        "space_name": "Chapel Street shop",
+        "landlord": "Elm City Properties",
+        "monthly_rent": 2400.0,
+        "next_due": "2026-09-02",
+        "notes": null,
+        "shop_today": "2026-08-31",
+        "days_until_due": 2,
+        "status": "upcoming"
+      },
+      "db_verification": {
+        "query_source": "leases WHERE id=1, compared against desk.date_today",
+        "fields_checked": {
+          "monthly_rent": {
+            "expected_from_db": 2400.0,
+            "returned_by_tool": 2400.0,
+            "match": true
+          },
+          "next_due": {
+            "expected_from_db": "2026-09-02",
+            "returned_by_tool": "2026-09-02",
+            "match": true
+          },
+          "landlord": {
+            "expected_from_db": "Elm City Properties",
+            "returned_by_tool": "Elm City Properties",
+            "match": true
+          },
+          "space_name": {
+            "expected_from_db": "Chapel Street shop",
+            "returned_by_tool": "Chapel Street shop",
+            "match": true
+          },
+          "shop_today": {
+            "expected_from_db": "2026-08-31",
+            "returned_by_tool": "2026-08-31",
+            "match": true
+          },
+          "days_until_due": {
+            "expected_from_db": 2,
+            "returned_by_tool": 2,
+            "match": true
+          }
+        },
+        "all_fields_match": true
+      }
+    },
+    {
+      "tool": "get_pricing",
+      "prompt_to_vibe_coder": "Ticket 103 asks for a bulk discount on 20 CC-HOOD-NAVY hoodies. Use the campus-customs MCP server to get the pricing for that SKU at quantity 20 and tell me the unit cost, the list price, and the margin.",
+      "ticket_unlocked": 103,
+      "arguments": {
+        "sku": "CC-HOOD-NAVY",
+        "qty": 20
+      },
+      "tool_output": {
+        "found": true,
+        "sku": "CC-HOOD-NAVY",
+        "qty": 20,
+        "unit_cost": 22.0,
+        "list_price": 58.0,
+        "unit_margin": 36.0,
+        "margin_pct_of_list": 62.1,
+        "extended_cost": 440.0,
+        "extended_list": 1160.0,
+        "extended_margin": 720.0,
+        "breakeven_unit_price": 22.0
+      },
+      "db_verification": {
+        "query_source": "pricing WHERE sku='CC-HOOD-NAVY'",
+        "fields_checked": {
+          "unit_cost": {
+            "expected_from_db": 22.0,
+            "returned_by_tool": 22.0,
+            "match": true
+          },
+          "list_price": {
+            "expected_from_db": 58.0,
+            "returned_by_tool": 58.0,
+            "match": true
+          },
+          "extended_cost": {
+            "expected_from_db": 440.0,
+            "returned_by_tool": 440.0,
+            "match": true
+          },
+          "extended_list": {
+            "expected_from_db": 1160.0,
+            "returned_by_tool": 1160.0,
+            "match": true
+          },
+          "extended_margin": {
+            "expected_from_db": 720.0,
+            "returned_by_tool": 720.0,
+            "match": true
+          }
+        },
+        "all_fields_match": true
+      }
+    }
+  ]
+}

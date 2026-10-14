@@ -1,0 +1,423 @@
+{
+  "shop_date": "2026-08-31",
+  "opening_balance": 3400.0,
+  "closing_balance": 160.0,
+  "payments_made": 2,
+  "total_paid": 3240.0,
+  "tickets": [
+    {
+      "id": 101,
+      "subject": "Bulldog tee",
+      "requester": "Tauhid Zaman",
+      "final_status": "resolved",
+      "outcome": "Size S has 0 on hand, so the requested tee cannot be filled today. The matching restock is already ordered and invoice 501 ($840) is paid; Inventory confirms Bulldog Print Co can ship and estimates arrival on 2026-09-05 from its 5-day lead time, not a confirmed date. An unsent customer draft is saved.",
+      "next_step_for_human": "Review and send draft 2 to Tauhid Zaman if appropriate.",
+      "passes_run": 2,
+      "agents_involved": [
+        "accounting",
+        "boss",
+        "customer_service",
+        "inventory"
+      ],
+      "agent_contributions": [
+        {
+          "agent": "Boss",
+          "steps": 33,
+          "tools_used": [
+            "get_ticket",
+            "ask_teammate",
+            "update_ticket",
+            "list_approvals"
+          ],
+          "summary": "Size S has 0 on hand, so the requested tee cannot be filled today. The matching restock is already ordered and invoice 501 ($840) is paid; Inventory confirms Bulldog Print Co can ship and estimates arrival on 2026-09-05 from its 5-day lead time, not a confirmed date. An unsent customer draft is saved."
+        },
+        {
+          "agent": "Inventory",
+          "steps": 19,
+          "tools_used": [
+            "get_ticket",
+            "check_vendor_can_ship",
+            "ask_teammate",
+            "check_shortfall",
+            "get_shop_date",
+            "find_vendor_for_sku"
+          ],
+          "summary": "The already-ordered restock has an estimated arrival of 2026-09-05, based on Bulldog Print Co\u2019s standard 5-day lead time from the shop date 2026-08-31. The vendor can ship now; this is an estimate, not a confirmed ship date."
+        },
+        {
+          "agent": "Accounting",
+          "steps": 16,
+          "tools_used": [
+            "get_cash_balance",
+            "get_shop_date",
+            "get_ticket",
+            "list_invoices",
+            "check_vendor_can_ship",
+            "request_approval",
+            "list_approvals"
+          ],
+          "summary": "No new invoice-payment approval request was created: a matching request is already pending for invoice 501 (approval 1), so a duplicate was avoided. No payment was made; the request still awaits a human decision."
+        },
+        {
+          "agent": "Customer Service",
+          "steps": 18,
+          "tools_used": [
+            "get_ticket",
+            "check_vendor_can_ship",
+            "list_approvals",
+            "save_draft_message"
+          ],
+          "summary": "Drafted an unsent message to Tauhid Zaman explaining the size S tee is not on hand, a replacement has been ordered, and no shipping or arrival date is confirmed."
+        }
+      ],
+      "delegations": [
+        {
+          "pass": 1,
+          "from": "Boss",
+          "to": "Inventory",
+          "depth": 1,
+          "direct_between_specialists": false,
+          "question": "Ticket 101 is for 1 CC-TEE-WHITE size S; get_ticket shows S qty 0. Linked invoice 501 is for 'Rush reprint CC-TEE-WHITE S', serves this ticket, matches item, and is open/unpaid; restock_already_ordered=false. Please determine whether the vendor can ship and, if so, the realistic arrival estimate/ful"
+        },
+        {
+          "pass": 1,
+          "from": "Boss",
+          "to": "Accounting",
+          "depth": 1,
+          "direct_between_specialists": false,
+          "question": "Ticket 101 is linked to invoice 501, amount $840, due 2026-08-28, open/unpaid, vendor 1 Bulldog Print Co; this invoice serves the requested CC-TEE-WHITE size S reprint (qty 1; current size stock 0). Please check current cash and queued claims, then request invoice-payment approval if appropriate; re"
+        },
+        {
+          "pass": 1,
+          "from": "Inventory",
+          "to": "Accounting",
+          "depth": 2,
+          "direct_between_specialists": true,
+          "question": "Ticket 101 has 0 CC-TEE-WHITE size S on hand and is served by linked invoice 501 for the exact reprint, open/unpaid for $840, due 2026-08-28 (3 days overdue as of shop date 2026-08-31). Vendor Bulldog Print Co (vendor 1) is blocked by this invoice and cannot ship. Please handle the invoice-payment r"
+        },
+        {
+          "pass": 1,
+          "from": "Boss",
+          "to": "Customer Service",
+          "depth": 1,
+          "direct_between_specialists": false,
+          "question": "Please draft a message for Tauhid Zaman on ticket 101. Facts: requested one CC-TEE-WHITE size S; shelf stock is 0. Linked reprint invoice 501 ($840, due Aug 28) is unpaid, and Bulldog Print Co cannot ship until paid. A human payment approval request is pending (approval 1), no payment/order has occu"
+        },
+        {
+          "pass": 2,
+          "from": "Boss",
+          "to": "Inventory",
+          "depth": 1,
+          "direct_between_specialists": false,
+          "question": "Ticket 101: CC-TEE-WHITE size S, qty 1; linked invoice 501 is paid, serves and matches this ticket, and restock_already_ordered=true. Inventory row showed size S qty 0; vendor Bulldog Print Co has 5-day lead time. Please establish the arrival estimate for this already-ordered restock, checking wheth"
+        },
+        {
+          "pass": 2,
+          "from": "Boss",
+          "to": "Customer Service",
+          "depth": 1,
+          "direct_between_specialists": false,
+          "question": "Please draft a message for ticket 101 to requester Tauhid Zaman. Facts: requested one CC-TEE-WHITE Bulldog tee size S; currently 0 on hand, shortfall 1, so cannot fill today. Its matching restock is already ordered and paid via invoice 501. Inventory says Bulldog Print Co can ship now, and estimates"
+        }
+      ],
+      "human_approvals": [
+        {
+          "approval_id": 1,
+          "kind": "invoice_payment",
+          "amount": 840.0,
+          "requested_by": "Accounting",
+          "decision": "approved",
+          "decided_by": "Julian",
+          "reason": "Overdue, and it is the only thing freezing the vendor. Clear it.",
+          "money_moved": true,
+          "balance_after": 2560.0
+        }
+      ],
+      "cash_change": -840.0,
+      "balance_before": 3400.0,
+      "balance_after": 2560.0,
+      "customer_drafts": [
+        {
+          "draft_id": 1,
+          "recipient": "Tauhid Zaman",
+          "subject": "Update on your Bulldog tee request",
+          "status": "draft_not_sent"
+        },
+        {
+          "draft_id": 2,
+          "recipient": "Tauhid Zaman",
+          "subject": "Update on your Bulldog tee",
+          "status": "draft_not_sent"
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "subject": "Rent due",
+      "requester": "Elm City Properties",
+      "final_status": "resolved",
+      "outcome": "Approval 2 was human-approved and executed, paying the $2,400 September rent on 2026-08-31. Accounting reports checking at $160 with no pending or approved claims left; the lease now records 2026-10-02 as the next due date after payment. Facilities noted that this lease date differs from the ticket's original September 2 due-date claim, but the payment record and updated next due date establish that the September rent was paid.",
+      "next_step_for_human": "No action needed for this ticket.",
+      "passes_run": 2,
+      "agents_involved": [
+        "accounting",
+        "boss",
+        "facilities"
+      ],
+      "agent_contributions": [
+        {
+          "agent": "Boss",
+          "steps": 30,
+          "tools_used": [
+            "get_ticket",
+            "ask_teammate",
+            "list_approvals",
+            "get_cash_balance",
+            "update_ticket"
+          ],
+          "summary": "Approval 2 was human-approved and executed, paying the $2,400 September rent on 2026-08-31. Accounting reports checking at $160 with no pending or approved claims left; the lease now records 2026-10-02 as the next due date after payment. Facilities noted that this lease date differs from the ticket's original September 2 due-date claim, but the payment record and updated next due date establish that the September rent was paid."
+        },
+        {
+          "agent": "Facilities",
+          "steps": 15,
+          "tools_used": [
+            "get_ticket",
+            "get_lease",
+            "get_shop_date",
+            "ask_teammate"
+          ],
+          "summary": "The ticket\u2019s stated September 2 due date conflicts with lease 1\u2019s recorded October 2 due date, so the claim does not match the lease and should be reviewed before any payment action. The lease currently marks rent as upcoming, not late; I did not hand it to Accounting because of the discrepancy."
+        },
+        {
+          "agent": "Accounting",
+          "steps": 27,
+          "tools_used": [
+            "get_cash_balance",
+            "get_lease",
+            "list_approvals",
+            "request_approval",
+            "get_shop_date",
+            "list_payments"
+          ],
+          "summary": "No accounting action is needed. Approval 2 is executed and the $2,400 rent payment for lease 1 was paid on 2026-08-31 with human approval; current checking cash is $160 and there are no pending or approved claims queued."
+        }
+      ],
+      "delegations": [
+        {
+          "pass": 1,
+          "from": "Boss",
+          "to": "Facilities",
+          "depth": 1,
+          "direct_between_specialists": false,
+          "question": "Ticket 102 is rent notice for lease 1, Chapel Street shop with Elm City Properties; linked next_due is 2026-09-02, monthly rent $2,400, and shop date is 2026-08-31. Please determine whether the rent is due/late/ahead and report the lease payment details."
+        },
+        {
+          "pass": 1,
+          "from": "Boss",
+          "to": "Accounting",
+          "depth": 1,
+          "direct_between_specialists": false,
+          "question": "Ticket 102 is rent notice for lease 1, monthly rent $2,400 due 2026-09-02; shop date is 2026-08-31. Please check cash balance and pending/approved competing spend requests, and advise whether requesting rent approval is supportable."
+        },
+        {
+          "pass": 1,
+          "from": "Facilities",
+          "to": "Accounting",
+          "depth": 2,
+          "direct_between_specialists": true,
+          "question": "For ticket 102, lease 1 has been verified: Chapel Street shop, landlord Elm City Properties, monthly rent $2,400, next_due 2026-09-02; shop date 2026-08-31, 2 days until due, status upcoming. Ticket notice says rent due in 2 days and matches the lease amount/date. Please check cash and queued claims"
+        },
+        {
+          "pass": 2,
+          "from": "Boss",
+          "to": "Facilities",
+          "depth": 1,
+          "direct_between_specialists": false,
+          "question": "Ticket 102 is rent_notice for lease 1, Chapel Street shop, Elm City Properties, monthly rent $2,400; linked record shows next_due 2026-10-02 and ticket notes say rent is due 2026-09-02. Against shop date 2026-08-31, please confirm the lease's current due/late status and any relevant next action."
+        },
+        {
+          "pass": 2,
+          "from": "Boss",
+          "to": "Accounting",
+          "depth": 1,
+          "direct_between_specialists": false,
+          "question": "Ticket 102 has a pending rent_payment approval request 2 per its note; amount $2,400 for lease 1. Ticket notes report checking $2,560, with $2,400 queued and $160 remaining. Please check current cash and queued claims, and advise whether any accounting action is needed; do not approve/pay."
+        }
+      ],
+      "human_approvals": [
+        {
+          "approval_id": 2,
+          "kind": "rent_payment",
+          "amount": 2400.0,
+          "requested_by": "Accounting",
+          "decision": "approved",
+          "decided_by": "Julian",
+          "reason": "Rent is contractual and due. Pay it.",
+          "money_moved": true,
+          "balance_after": 160.0
+        }
+      ],
+      "cash_change": -2400.0,
+      "balance_before": 2560.0,
+      "balance_after": 160.0,
+      "customer_drafts": []
+    },
+    {
+      "id": 103,
+      "subject": "Bulk hoodie discount",
+      "requester": "Yale AI Club",
+      "final_status": "blocked",
+      "outcome": "Accounting applied the approved $52/unit price for up to 8 units (10.3% below the $58 list price, leaving $30/unit margin). Inventory confirms only 8 of 20 size-M hoodies are available, leaving 12 short. A restock would cost $264, but checking has $160 and no pending requests, so no order was placed; the vendor's September 5 ETA is conditional and is not confirmed. Customer Service saved an unsent draft that does not promise the remaining stock or a delivery date.",
+      "next_step_for_human": "Resolve the $104 restock funding shortfall (or decide whether to proceed with only the 8 available); then send or edit draft 6 as appropriate.",
+      "passes_run": 2,
+      "agents_involved": [
+        "accounting",
+        "boss",
+        "customer_service",
+        "inventory"
+      ],
+      "agent_contributions": [
+        {
+          "agent": "Boss",
+          "steps": 32,
+          "tools_used": [
+            "get_ticket",
+            "ask_teammate",
+            "update_ticket",
+            "get_cash_balance"
+          ],
+          "summary": "Accounting applied the approved $52/unit price for up to 8 units (10.3% below the $58 list price, leaving $30/unit margin). Inventory confirms only 8 of 20 size-M hoodies are available, leaving 12 short. A restock would cost $264, but checking has $160 and no pending requests, so no order was placed; the vendor's September 5 ETA is conditional and is not confirmed. Customer Service saved an unsent draft that does not promise the remaining stock or a delivery date."
+        },
+        {
+          "agent": "Accounting",
+          "steps": 16,
+          "tools_used": [
+            "get_ticket",
+            "list_approvals",
+            "quote_discount",
+            "request_approval",
+            "apply_price_override"
+          ],
+          "summary": "Approval 4 was approved by Julian and is now executed: the $52 unit price is active for up to 8 size-M hoodies. No further accounting step is needed for that quantity; the override does not cover the remaining 12 requested units."
+        },
+        {
+          "agent": "Inventory",
+          "steps": 16,
+          "tools_used": [
+            "get_ticket",
+            "check_shortfall",
+            "get_shop_date",
+            "find_vendor_for_sku",
+            "list_approvals",
+            "list_invoices",
+            "check_vendor_can_ship"
+          ],
+          "summary": "Ticket 103 has 8 of the requested 20 size-M hoodies available now, leaving 12 short. A restock route is available through Bulldog Print Co., but no order was placed; the tool\u2019s September 5 ETA applies only if ordered today (August 31)."
+        },
+        {
+          "agent": "Customer Service",
+          "steps": 16,
+          "tools_used": [
+            "list_drafts",
+            "get_ticket",
+            "save_draft_message",
+            "list_approvals"
+          ],
+          "summary": "Drafted an unsent reply to Yale AI Club: 8 size-M hoodies are available now at the approved $52 price, and no stock or delivery date is promised for the remaining 12."
+        }
+      ],
+      "delegations": [
+        {
+          "pass": 1,
+          "from": "Boss",
+          "to": "Accounting",
+          "depth": 1,
+          "direct_between_specialists": false,
+          "question": "Ticket 103: Yale AI Club requests 20 CC-HOOD-NAVY size M. get_ticket shows cost $22, list $58; notes state approval 3 was approved by Julian for $52 each on up to 8 units, but application failed because approval amount is null. Existing notes say 8 available, restocking 12 would cost $264 vs $160 ch"
+        },
+        {
+          "pass": 1,
+          "from": "Boss",
+          "to": "Inventory",
+          "depth": 1,
+          "direct_between_specialists": false,
+          "question": "Ticket 103: Yale AI Club requests 20 CC-HOOD-NAVY size M. get_ticket shows 8 on hand; prior ticket note says short 12 and a restock would cost $264 against $160 checking, so no order or delivery date is confirmed. Please establish current stock/shortfall and whether any restock has since been ordere"
+        },
+        {
+          "pass": 1,
+          "from": "Boss",
+          "to": "Customer Service",
+          "depth": 1,
+          "direct_between_specialists": false,
+          "question": "Ticket 103 facts: request is 20 CC-HOOD-NAVY size M; Inventory confirms 8 on hand, shortfall 12, no confirmed restock/order date. Vendor could ship if an order were placed, but no order is evidenced. Accounting reports approval 3 rejected/malformed and a new $416 ($52 \u00d7 8) price_override approval 4 "
+        },
+        {
+          "pass": 2,
+          "from": "Boss",
+          "to": "Inventory",
+          "depth": 1,
+          "direct_between_specialists": false,
+          "question": "Ticket 103: Yale AI Club requests 20 CC-HOOD-NAVY size M hoodies. get_ticket shows 8 on hand, linked notes say prior checks found 12 short and no restock ordered/date confirmed. Please confirm current shortfall and whether any vendor/restock path is available or pertinent; do not order anything."
+        },
+        {
+          "pass": 2,
+          "from": "Boss",
+          "to": "Accounting",
+          "depth": 1,
+          "direct_between_specialists": false,
+          "question": "Ticket 103: 20 CC-HOOD-NAVY hoodies requested at $52 each for up to 8 available. get_ticket shows unit cost $22, list $58; notes say approval 3 was rejected and pending approval 4 for $52 each/up to 8 ($416) was requested. Please check current approval status and assess whether any price action is e"
+        },
+        {
+          "pass": 2,
+          "from": "Boss",
+          "to": "Customer Service",
+          "depth": 1,
+          "direct_between_specialists": false,
+          "question": "Ticket 103 facts: Yale AI Club wants 20 CC-HOOD-NAVY size M. Inventory confirms 8 available, 12 short; no restock ordered. Vendor can ship, but September 5 is only a conditional ETA if an order is placed Aug 31. Accounting reports approved price override 4 is applied: $52 each for up to 8, versus $5"
+        }
+      ],
+      "human_approvals": [
+        {
+          "approval_id": 4,
+          "kind": "price_override",
+          "amount": 416.0,
+          "requested_by": "Accounting",
+          "decision": "approved",
+          "decided_by": "Julian",
+          "reason": "Margin holds at the proposed price.",
+          "money_moved": false,
+          "balance_after": 160.0
+        }
+      ],
+      "cash_change": 0.0,
+      "balance_before": 160.0,
+      "balance_after": 160.0,
+      "customer_drafts": [
+        {
+          "draft_id": 3,
+          "recipient": "Yale AI Club",
+          "subject": "Your request for 20 size-M navy hoodies",
+          "status": "draft_not_sent"
+        },
+        {
+          "draft_id": 4,
+          "recipient": "Yale AI Club",
+          "subject": "Update on your request for 20 size-M navy hoodies",
+          "status": "draft_not_sent"
+        },
+        {
+          "draft_id": 5,
+          "recipient": "Yale AI Club",
+          "subject": "Update on your request for 20 size-M navy hoodies",
+          "status": "draft_not_sent"
+        },
+        {
+          "draft_id": 6,
+          "recipient": "Yale AI Club",
+          "subject": "Your size-M hoodie request",
+          "status": "draft_not_sent"
+        }
+      ]
+    }
+  ]
+}

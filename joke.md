@@ -1,0 +1,5 @@
+# Proof of Workspace
+
+Why did the scarecrow get promoted?
+
+Because he was outstanding in his field.

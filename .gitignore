@@ -1,0 +1,22 @@
+# Secrets — never commit the real key. See .env.example.
+.env
+.env.local
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# macOS
+.DS_Store
+
+# Local run artefacts
+*.corrupt.json
+*.tmp
+data.zip
